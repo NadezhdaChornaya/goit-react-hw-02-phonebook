@@ -1,41 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-export default class ContactList extends Component {
-    state = {
-        name: ''
-    }
+export const ContactList = ({ contacts, deleteContact }) => {
+    return (
+        <ul>
+            {contacts.map(({ id, name, number }) => {
+                return (
+                    <li key={id} className="itemContact">
+                        {`${name}:  ${number}`}
+                        <button type="button" data-id={id} onClick={deleteContact}>Delete</button>
+                    </li>
 
-    hadlleSubmit = e => {
-        e.preventDefault();
-        this.props.addContact(this.state.name)
-        this.setState({
-            name: ''
-        })
-    }
+                )
+            })}
 
-    handleChange = e => {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        })
-    }
-
-    render() {
-        const { name } = this.state;
-        return (
-
-            <>
-                <h2>Phonebook</h2>
-                <form onSubmit={this.hadlleSubmit}>
-                    <label>Name
-                    <input type="text" name="name" value={name} onChange={this.handleChange}></input>
-                    </label>
-                    <button type="submit">Add contact</button>
-                </form>
-
-            </>
-        )
-
-    }
+        </ul >
+    )
 }
 
